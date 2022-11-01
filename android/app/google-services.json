@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "186844623282",
+    "project_id": "bebepaca-55ee0",
+    "storage_bucket": "bebepaca-55ee0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186844623282:android:33cde6f76cc2a90cd334ab",
+        "android_client_info": {
+          "package_name": "com.bebepaca.bebepaca"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186844623282-2a3viteo1387n53lkgjc2g17ki89o755.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtUW3PdpNMXEqE6XajPFpcYFAQmp_oJ20"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186844623282-2a3viteo1387n53lkgjc2g17ki89o755.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
