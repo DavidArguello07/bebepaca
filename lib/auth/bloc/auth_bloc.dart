@@ -10,7 +10,7 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {}
+  AuthBloc({required this.authRepository}) : super(AuthInitial()) {Null;}
 
   Stream<User?> authStateChanges() => authRepository.authStateChanges();
   // FORM
