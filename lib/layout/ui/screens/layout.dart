@@ -1,4 +1,5 @@
 import 'package:bebepaca/auth/bloc/auth_bloc.dart';
+import 'package:bebepaca/profile_trips.dart';
 import 'package:bebepaca/resources/theme/app_colors.dart';
 import 'package:bebepaca/routes/auth_router.dart';
 import 'package:bebepaca/routes/fade_transition_route.dart';
@@ -37,21 +38,22 @@ class _LayoutState extends State<Layout> {
             return SafeArea(
               child: Scaffold(
                   body: SizedBox(
-                    child: Container(
+                    child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Bienvenido ${user.displayName}',
-                        style: GoogleFonts.poppins(
-                          color: AppColors.blue,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
+                      const ProfileTrips(),
+                      // Text(
+                      //   'Bienvenido ${user.displayName}',
+                      //   style: GoogleFonts.poppins(
+                      //     color: AppColors.blue,
+                      //     fontSize: 22,
+                      //     fontWeight: FontWeight.w500,
+                      //   ),
+                      // ),
                       const SizedBox(height: 30),
                       IconButton(
                           onPressed: () {
