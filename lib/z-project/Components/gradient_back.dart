@@ -12,22 +12,20 @@ class GradientBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 500,
-      height: 250,
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [
-                Color(colorr1), //TONO MAS CLARO AL MAS OSCURO
-                Color(colorr2)
-              ],
-              begin: const FractionalOffset(0.2, 0.0),
-              end: const FractionalOffset(1.0, 0.6),
-              stops: const [0.0, 0.6],
-              tileMode: TileMode.clamp)),
-      
+    return SafeArea(
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 50),
+        width: 500,
+        height: 225,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                colors: [
+                  Color(colorr1), //TONO MAS CLARO AL MAS OSCURO
+                  Color(colorr2)
+                ],
+                begin: const FractionalOffset(0.2, 0.0),
+                end: const FractionalOffset(1.0, 0.6),
+                stops: const [0.0, 0.6],
+                tileMode: TileMode.clamp)),
         child: Text(
           textAlign: TextAlign.center,
           title,

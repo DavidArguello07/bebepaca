@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FloatingActionButtonGreen extends StatefulWidget {
-  const FloatingActionButtonGreen({super.key});
+   const FloatingActionButtonGreen({super.key});
 
   @override
   State<FloatingActionButtonGreen> createState() =>FloatingActionButtonGreenState();
@@ -13,13 +13,17 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
   // Color ColorBack = Color(0xFF11DA53);
   // Color ColorIcon = Colors.white;
 
+
+
+  @override
+  Widget build(BuildContext context) {
   void onPressedFav() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: _pressed
             ? const Text("Lo quitaste de tus favoritos")
             : const Text("Lo agregaste a tus favoritos"),
-        duration: const Duration(milliseconds: 400),
+        duration:  const Duration(milliseconds: 400),
       ),
     );
     
@@ -29,11 +33,10 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
       } else {
         _pressed = true;
       }
-    });
+      }
+    );
   }
 
-  @override
-  Widget build(BuildContext context) {
     return FloatingActionButton(
         backgroundColor: const Color(0xFF11DA53),
         mini: true,

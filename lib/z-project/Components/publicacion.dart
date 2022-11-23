@@ -1,3 +1,4 @@
+import 'package:bebepaca/z-project/Components/info_button.dart';
 import 'package:flutter/material.dart';
 // import 'package:bebepaca/publicacion_coment.dart';
 import 'package:bebepaca/z-project/Components/floatingactionbuttonn.dart';
@@ -16,10 +17,13 @@ class Publicacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     final pub = Container(
       height: 240,
       width: 250,
-      margin: const EdgeInsets.only(top: 250),
+     margin: const EdgeInsets.only(top: 250),
       decoration: BoxDecoration(
           image:DecorationImage(fit: BoxFit.cover, image: AssetImage(pathimage)),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
@@ -32,7 +36,7 @@ class Publicacion extends StatelessWidget {
 
     final coment = Container(
       // alignment: const Alignment(0.2, 0.6),
-      // margin: const EdgeInsets.only(right: 50),
+      // margin: const EdgeInsets.only(bottom: 20),
       height: 80,
       width: 350,
       decoration: BoxDecoration(
@@ -57,23 +61,24 @@ class Publicacion extends StatelessWidget {
             ),
             Text(
               price,
-              style: const TextStyle(
+              style:  const TextStyle(
                   fontSize: 18,
                   fontFamily: "Lato",
                   color: Color.fromARGB(255, 0, 0, 0)),
             ),
-            const FloatingActionButtonGreen(),
-            const FloatingActionButtonGreen()
+                      const FloatingActionButtonGreen(),
+            const Info(),
           ]
       ),
     );
 
-    return Stack(
-        alignment: const Alignment(0.5, 1.47), 
+    return SafeArea(
+      child: Column(
+        // alignment: const Alignment(0.5, 1.47), 
         children: <Widget>[
           pub, 
-          coment
+          coment,
         ]
-    );
+    )); 
   }
 }

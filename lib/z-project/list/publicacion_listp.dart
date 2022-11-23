@@ -8,7 +8,7 @@ const PublicacionListp({ Key? key }) : super(key: key);
   Widget build(BuildContext context){
     return ListView //Container
     (
-        padding: const EdgeInsets.all(50),
+        // padding: const EdgeInsets.all(50),
         // scrollDirection: Axis.vertical,
         children: const <Widget>[
           Publicacion(pathimage: "assets/bebe4.jpg", name: "Camisa",price: "35 LPS"),

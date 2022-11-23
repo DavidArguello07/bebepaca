@@ -6,10 +6,9 @@ const PublicacionListm({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-    return ListView //Container
-    (
-        padding: const EdgeInsets.all(60),
-        // scrollDirection: Axis.vertical,
+    return SafeArea(child: ListView(
+        // padding: const EdgeInsets.all(60),
+       scrollDirection: Axis.vertical,
         children: const <Widget>[
           Publicacion(pathimage: "assets/bebe.jpg", name: "Camisa",price: "35 LPS"),
           Publicacion(pathimage: "assets/bebe2.jpg", name: "Camisa",price: "35 LPS"),
@@ -17,7 +16,13 @@ const PublicacionListm({ Key? key }) : super(key: key);
           Publicacion(pathimage: "assets/bebe7.jpg", name: "Camisa",price: "35 LPS"),
           Publicacion(pathimage: "assets/bebe9.jpg", name: "Camisa",price: "35 LPS"),
           Publicacion(pathimage: "assets/bebe10.jpg", name: "Camisa",price: "35 LPS"),
+          Publicacion(pathimage: "assets/bebe9.jpg", name: "Camisa",price: "35 LPS"),
+          Publicacion(pathimage: "assets/bebe10.jpg", name: "Camisa",price: "35 LPS"),
         ]
-    );
+
+    ),);
+    
+
+
   }
 }

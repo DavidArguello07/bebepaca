@@ -7,10 +7,10 @@ class Exit extends StatefulWidget {
   const Exit({Key? key}) : super(key: key);
 
   @override
-  _ExitState createState() => _ExitState();
+  ExitState createState() => ExitState();
 }
 
-class _ExitState extends State<Exit> {
+class ExitState extends State<Exit> {
   late AuthBloc authBloc;
 
   @override
