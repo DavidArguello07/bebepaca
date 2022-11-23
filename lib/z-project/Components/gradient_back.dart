@@ -21,13 +21,13 @@ class GradientBack extends StatelessWidget {
                 Color(colorr1), //TONO MAS CLARO AL MAS OSCURO
                 Color(colorr2)
               ],
-              begin: FractionalOffset(0.2, 0.0),
-              end: FractionalOffset(1.0, 0.6),
-              stops: [0.0, 0.6],
+              begin: const FractionalOffset(0.2, 0.0),
+              end: const FractionalOffset(1.0, 0.6),
+              stops: const [0.0, 0.6],
               tileMode: TileMode.clamp)),
       
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 50),
+        padding: const EdgeInsets.symmetric(vertical: 50),
         child: Text(
           textAlign: TextAlign.center,
           title,

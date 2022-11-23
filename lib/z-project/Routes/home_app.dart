@@ -1,5 +1,5 @@
-import 'package:bebepaca/gradient_back.dart';
-import 'package:bebepaca/publicacion_listm.dart';
+import 'package:bebepaca/z-project/Components/gradient_back.dart';
+import 'package:bebepaca/z-project/list/publicacion_listm.dart';
 import 'package:flutter/material.dart';
 
 class HomeApp extends StatelessWidget {

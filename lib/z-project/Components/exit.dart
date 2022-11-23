@@ -24,13 +24,15 @@ class _ExitState extends State<Exit> {
     return Container(
         alignment: const Alignment(0.9, -0.9),
         child: IconButton(
-            onPressed: () {
-              authBloc.logout();
-            },
-            color: AppColors.red,
-            icon: Icon(
+          onPressed: () {
+            authBloc.logout();
+          },
+          color: AppColors.red,
+          icon: Icon(
               Icons.logout,
               color: AppColors.white,
-            )));
+          )
+        )
+    );
   }
 }

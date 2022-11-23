@@ -1,7 +1,7 @@
-import 'package:bebepaca/exit.dart';
-import 'package:bebepaca/gradient_back.dart';
-import 'package:bebepaca/perfil_photo.dart';
-import 'package:bebepaca/publicacion_listp.dart';
+import 'package:bebepaca/z-project/Components/exit.dart';
+import 'package:bebepaca/z-project/Components/gradient_back.dart';
+import 'package:bebepaca/z-project/Components/perfil_photo.dart';
+import 'package:bebepaca/z-project/list/publicacion_listp.dart';
 import 'package:flutter/material.dart';
 
 class ProfileApp extends StatelessWidget {

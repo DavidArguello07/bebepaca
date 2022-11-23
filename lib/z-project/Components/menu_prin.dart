@@ -1,7 +1,7 @@
-import 'package:bebepaca/profile_app.dart';
+import 'package:bebepaca/z-project/Routes/profile_app.dart';
 import 'package:flutter/material.dart';
-import 'package:bebepaca/home_app.dart';
-import 'package:bebepaca/fav_app.dart';
+import 'package:bebepaca/z-project/Routes/home_app.dart';
+import 'package:bebepaca/z-project/Routes/fav_app.dart';
 
 class MenuPrin extends StatefulWidget {
   const MenuPrin({ Key? key }) : super(key: key);

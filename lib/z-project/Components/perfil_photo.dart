@@ -15,6 +15,6 @@ const PerfilPhoto({ Key? key }) : super(key: key);
               fit: BoxFit.fill, image: AssetImage("assets/man.jpg")
               )
               ),
-    );;
+    );
   }
 }

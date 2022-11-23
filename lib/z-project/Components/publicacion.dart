@@ -1,21 +1,27 @@
 import 'package:flutter/material.dart';
 // import 'package:bebepaca/publicacion_coment.dart';
-import 'package:bebepaca/floatingactionbuttonn.dart';
+import 'package:bebepaca/z-project/Components/floatingactionbuttonn.dart';
 
 class Publicacion extends StatelessWidget {
   final String pathimage;
+  final String name;
+  final String price;
 
-  const Publicacion({Key? key, required this.pathimage}) : super(key: key);
+  const Publicacion(
+      {Key? key,
+      required this.pathimage,
+      required this.name,
+      required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final pub = Container(
       height: 240,
-      width: 280,
+      width: 250,
       margin: const EdgeInsets.only(top: 250),
       decoration: BoxDecoration(
-          image:
-              DecorationImage(fit: BoxFit.cover, image: AssetImage(pathimage)),
+          image:DecorationImage(fit: BoxFit.cover, image: AssetImage(pathimage)),
           borderRadius: const BorderRadius.all(Radius.circular(20)),
           shape: BoxShape.rectangle,
           boxShadow: const <BoxShadow>[
@@ -34,39 +40,40 @@ class Publicacion extends StatelessWidget {
         color: const Color.fromARGB(255, 205, 216, 228),
       ),
       child: Row(
-        
           //crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             // ignore: avoid_unnecessary_containers
-            Container(
+            SizedBox(
               width: 100,
-              child: const Text(
-              "Short Usado",
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
+              child: Text(
+                name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontFamily: "Lato",
+                    color: Color.fromARGB(255, 0, 0, 0)),
+              ),
+            ),
+            Text(
+              price,
+              style: const TextStyle(
                   fontSize: 18,
                   fontFamily: "Lato",
                   color: Color.fromARGB(255, 0, 0, 0)),
             ),
-            ),
-            const Text(
-              "159 LPS",
-              style: TextStyle(
-                  fontSize: 18,
-                  fontFamily: "Lato",
-                  color: Color.fromARGB(255, 0, 0, 0)),
-            ),
-            FloatingActionButtonGreen()
-          ]),
+            const FloatingActionButtonGreen(),
+            const FloatingActionButtonGreen()
+          ]
+      ),
     );
+
     return Stack(
-        alignment: const Alignment(
-          0.5, 1.47
-          ),  
-          children: <Widget>[
-            pub, coment
-            ]
-          );
+        alignment: const Alignment(0.5, 1.47), 
+        children: <Widget>[
+          pub, 
+          coment
+        ]
+    );
   }
 }

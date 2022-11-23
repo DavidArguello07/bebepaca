@@ -1,5 +1,5 @@
 import 'package:bebepaca/auth/bloc/auth_bloc.dart';
-import 'package:bebepaca/menu_prin.dart';
+import 'package:bebepaca/z-project/Components/menu_prin.dart';
 // import 'package:bebepaca/resources/theme/app_colors.dart';
 import 'package:bebepaca/routes/auth_router.dart';
 import 'package:bebepaca/routes/fade_transition_route.dart';

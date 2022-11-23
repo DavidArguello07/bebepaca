@@ -4,12 +4,11 @@ class FloatingActionButtonGreen extends StatefulWidget {
   const FloatingActionButtonGreen({super.key});
 
   @override
-  State<FloatingActionButtonGreen> createState() =>
-      _FloatingActionButtonGreen();
+  State<FloatingActionButtonGreen> createState() =>FloatingActionButtonGreenState();
 }
 
-class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
-  bool _pressed = true;
+class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
+  bool _pressed = false;
   // IconData IconFav = Icons.favorite_border;
   // Color ColorBack = Color(0xFF11DA53);
   // Color ColorIcon = Colors.white;
@@ -23,6 +22,7 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
         duration: const Duration(milliseconds: 400),
       ),
     );
+    
     setState(() {
       if (_pressed) {
         _pressed = false;
@@ -39,6 +39,7 @@ class _FloatingActionButtonGreen extends State<FloatingActionButtonGreen> {
         mini: true,
         tooltip: "Fav",
         onPressed: onPressedFav,
-        child: Icon(_pressed ? Icons.favorite : Icons.favorite_border));
+        child: Icon(_pressed ? Icons.favorite : Icons.favorite_border)
+    );
   }
 }
