@@ -41,6 +41,7 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
         backgroundColor: const Color(0xFF11DA53),
         mini: true,
         tooltip: "Fav",
+        heroTag: "btn1",
         onPressed: onPressedFav,
         child: Icon(_pressed ? Icons.favorite : Icons.favorite_border)
     );

@@ -54,7 +54,7 @@ class Publicacion extends StatelessWidget {
                 name,
                 overflow: TextOverflow.ellipsis,
                 style: const TextStyle(
-                    fontSize: 18,
+                    fontSize: 15,
                     fontFamily: "Lato",
                     color: Color.fromARGB(255, 0, 0, 0)),
               ),
@@ -62,11 +62,11 @@ class Publicacion extends StatelessWidget {
             Text(
               price,
               style:  const TextStyle(
-                  fontSize: 18,
+                  fontSize: 15,
                   fontFamily: "Lato",
                   color: Color.fromARGB(255, 0, 0, 0)),
             ),
-                      const FloatingActionButtonGreen(),
+            const FloatingActionButtonGreen(),
             const Info(),
           ]
       ),

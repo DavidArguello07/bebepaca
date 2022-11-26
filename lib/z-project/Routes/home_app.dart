@@ -13,8 +13,8 @@ class HomeApp extends StatelessWidget {
         PublicacionListm(),
         GradientBack(
             title: 'Bienvenido a Bebepaca',
-            colorr1: 0xFF99bacb,
-            colorr2: 0xFF584CD1),
+            colorr1: 0xFF090979,
+            colorr2: 0xFF00d4ff),
       ],
     ));
   }

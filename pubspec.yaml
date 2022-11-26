@@ -47,8 +47,8 @@ dependencies:
   loading_animation_widget: ^1.2.0+3
   google_fonts: ^3.0.1
   quickalert: ^1.0.0
-  # image_cropper: ^2.0.3
-  # image_picker: ^0.8.5+3
+  image_cropper: ^2.0.3
+  image_picker: ^0.8.5+3
 
 dev_dependencies:
   flutter_test:
@@ -77,17 +77,6 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
-    - "./assets/man.jpg"
-    - "./assets/bebe.jpg"
-    - "./assets/bebe2.jpg"
-    - "./assets/bebe3.jpg"
-    - "./assets/bebe4.jpg"
-    - "./assets/bebe5.jpg"
-    - "./assets/bebe6.jpg"
-    - "./assets/bebe7.jpg"
-    - "./assets/bebe8.jpg"
-    - "./assets/bebe9.jpg"
-    - "./assets/bebe10.jpg"
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

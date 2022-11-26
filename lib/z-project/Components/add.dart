@@ -1,4 +1,6 @@
-import 'package:bebepaca/z-project/Components/add_page.dart';
+
+import 'package:bebepaca/z-project/Components/formadd.dart';
+import 'package:bebepaca/z-project/Components/formulario.dart';
 import 'package:flutter/material.dart';
 
 class Add extends StatefulWidget {
@@ -12,11 +14,13 @@ class AddState extends State<Add> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: ElevatedButton(
-            onPressed: () => {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) =>  const AddPage())),
-                },
-            child: const Icon(Icons.add_a_photo)));
+      child: ElevatedButton(
+        onPressed: () => {
+          Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const Formulario())
+          ),
+    },
+    child: const Icon(Icons.add_a_photo))
+    );
   }
 }

@@ -11,15 +11,16 @@ class Info extends StatefulWidget {
 class InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
+
     return FloatingActionButton(
         backgroundColor: const Color.fromARGB(255, 173, 29, 29),
         mini: true,
         tooltip: "Fav",
+        heroTag: "btn2",
         onPressed: () => {
-        Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const InfoPage())),
+        Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoPage())),
         },
-        child: const Icon(Icons.library_books)
-        );
+        child: const Icon(Icons.info_outline)
+    );
   }
 }
