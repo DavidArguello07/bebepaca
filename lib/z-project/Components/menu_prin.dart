@@ -4,7 +4,7 @@ import 'package:bebepaca/z-project/Routes/home_app.dart';
 import 'package:bebepaca/z-project/Routes/fav_app.dart';
 
 class MenuPrin extends StatefulWidget {
-  const MenuPrin({ Key? key }) : super(key: key);
+  const MenuPrin({Key? key}) : super(key: key);
 
   @override
   State<MenuPrin> createState() => _MenuPrin();
@@ -18,7 +18,7 @@ class _MenuPrin extends State<MenuPrin> {
     const ProfileApp()
   ];
 
-   void onTapTapped(int index){
+  void onTapTapped(int index) {
     setState(() {
       indexTap = index;
     });
@@ -26,7 +26,6 @@ class _MenuPrin extends State<MenuPrin> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: widgetsChildren[indexTap],
       bottomNavigationBar: Theme(
@@ -39,10 +38,11 @@ class _MenuPrin extends State<MenuPrin> {
           child: BottomNavigationBar(
             onTap: onTapTapped,
             currentIndex: indexTap,
-            items: 
-            const [BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "")],
+            items: const [
+              BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
+              BottomNavigationBarItem(icon: Icon(Icons.favorite), label: ""),
+              BottomNavigationBarItem(icon: Icon(Icons.person), label: "")
+            ],
           )),
     );
   }

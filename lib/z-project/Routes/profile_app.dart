@@ -1,4 +1,4 @@
-import 'package:bebepaca/z-project/Components/add.dart';
+import 'package:bebepaca/z-project/Components/add_button.dart';
 import 'package:bebepaca/z-project/Components/exit.dart';
 import 'package:bebepaca/z-project/Components/gradient_back.dart';
 import 'package:bebepaca/z-project/Components/perfil_photo.dart';
