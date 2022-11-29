@@ -14,10 +14,8 @@ class AddState extends State<Add> {
     return SafeArea(
         child: ElevatedButton(
             onPressed: () => {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginForm())),
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginForm())),
                 },
             child: const Icon(Icons.add_a_photo)));
   }

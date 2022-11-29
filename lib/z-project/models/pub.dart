@@ -1,10 +1,10 @@
 class Pub {
-  String? nombre;
-  String? descripcion;
-  num? precio;
-  String? talla;
-  String? genero;
-  String? image;
+  final String? nombre;
+  final String? descripcion;
+  final String? precio;
+  final String? talla;
+  final String? genero;
+  final String? image;
 
   Pub(
       {this.nombre,
