@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:bebepaca/z-project/Components/select_photo_options_screen.dart';
+import 'package:bebepaca/z-project/models/firestore_helper.dart';
 import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,18 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LoginForm extends StatefulWidget {
-  LoginForm({super.key});
+  const LoginForm({
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => LoginFormState();
-  Pub pub = Pub();
 }
 
 class LoginFormState extends State<LoginForm> {
   GlobalKey<FormState> formKey = GlobalKey();
-  //Llamar a firebase
-  // final CollectionReference _products =
-  //     FirebaseFirestore.instance.collection('products');
 
   TextEditingController prendaCtrl = TextEditingController();
   TextEditingController descripcionCtrl = TextEditingController();
@@ -38,7 +37,6 @@ class LoginFormState extends State<LoginForm> {
     final image = await ImagePicker().pickImage(source: source);
     if (image == null) return;
     File? img = File(image.path);
-    // uploadFile();
     setState(() {
       _image = img;
       Navigator.of(context).pop();
@@ -46,28 +44,10 @@ class LoginFormState extends State<LoginForm> {
   }
 
   void uploadFile() async {
-    storeEntry(
-      String imageURL,
-      String nombre,
-      String descripcion,
-      String precio,
-      String talla,
-      String genero,
-    ) {
-      FirebaseFirestore.instance.collection('products').add({
-        'descripcion': descripcion,
-        'genero': genero,
-        'image': imageURL,
-        'nombre': nombre,
-        'precio': precio,
-        'talla': talla
-      });
-    }
-
     final file = _image!;
-    // final metaData = SettableMetadata(contentType: 'image/jpg');
-    final storageRef = FirebaseStorage.instance.ref();
-    Reference ref = storageRef.child('imagenes/');
+    final storageRef = FirebaseStorage.instance.ref('PICTURE');
+    var timeKey = DateTime.now();
+    Reference ref = storageRef.child("${timeKey.toString()}.jpg");
     final uploadTask = ref.putFile(file);
 
     uploadTask.snapshotEvents.listen((event) {
@@ -76,8 +56,14 @@ class LoginFormState extends State<LoginForm> {
           break;
         case TaskState.success:
           ref.getDownloadURL().then((value) {
-            storeEntry(value, prendaCtrl.text, descripcionCtrl.text,
-                precioCtrl.text, tallaCtrl.text, generoCtrl.text);
+            FirestoreHelper.createpub(Pub(
+              nombre: prendaCtrl.text,
+              descripcion: descripcionCtrl.text,
+              precio: precioCtrl.text,
+              talla: tallaCtrl.text,
+              genero: generoCtrl.text,
+              image: value,
+            ));
           });
           break;
         default:
@@ -108,6 +94,17 @@ class LoginFormState extends State<LoginForm> {
             );
           }),
     );
+  }
+
+  //Forma dos
+  @override
+  void dispose() {
+    prendaCtrl.dispose();
+    descripcionCtrl.dispose();
+    precioCtrl.dispose();
+    tallaCtrl.dispose();
+    generoCtrl.dispose();
+    super.dispose();
   }
 
   @override
@@ -281,33 +278,45 @@ class LoginFormState extends State<LoginForm> {
   }
 }
 
+// DropdownButton(
+//   items: lista1
+//       .map((String e) => DropdownMenuItem(
+//             value: e,
+//             child: Text(e),
+//           ))
+//       .toList(),
+//   onChanged: (value) {
+//     setState(() {
+//       vista1 = value as String;
+//     });
+//   },
+//   hint: Text(vista1),
+// ),
+// DropdownButton(
+//   items: lista2
+//       .map((String e) => DropdownMenuItem(
+//             value: e,
+//             child: Text(e),
+//           ))
+//       .toList(),
+//   onChanged: (value) {
+//     setState(() {
+//       vista2 = value as String;
+//     });
+//   },
+//   hint: Text(vista2),
+// )
 
 
-                                // DropdownButton(
-                                //   items: lista1
-                                //       .map((String e) => DropdownMenuItem(
-                                //             value: e,
-                                //             child: Text(e),
-                                //           ))
-                                //       .toList(),
-                                //   onChanged: (value) {
-                                //     setState(() {
-                                //       vista1 = value as String;
-                                //     });
-                                //   },
-                                //   hint: Text(vista1),
-                                // ),
-                                // DropdownButton(
-                                //   items: lista2
-                                //       .map((String e) => DropdownMenuItem(
-                                //             value: e,
-                                //             child: Text(e),
-                                //           ))
-                                //       .toList(),
-                                //   onChanged: (value) {
-                                //     setState(() {
-                                //       vista2 = value as String;
-                                //     });
-                                //   },
-                                //   hint: Text(vista2),
-                                // )
+  //  //carga publicacion pero NO imagen
+  //   final file = _image!;
+  //   final storageRef = FirebaseStorage.instance.ref('PICTURE');
+  //   Reference ref = storageRef.child('imagenesss/');
+  //   final uploadTask = ref.putFile(file);
+
+  //   //carga cualquier imagen pero NO publicacion
+  //   final file = _image!;
+  //   final storageRef = FirebaseStorage.instance.ref().child('pictures');
+  //   var timeKey = DateTime.now();
+  //   final uploadTask =
+  //       storageRef.child(timeKey.toString() + ".jpg").putFile(_image!);

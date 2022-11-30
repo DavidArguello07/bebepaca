@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         navigatorObservers: [HeroController()],
         home: const SlashRouter(),
-        // home: const LoginForm(),
+        // home: LoginForm(),
         // home: const InfoPage(),
       ),
     );

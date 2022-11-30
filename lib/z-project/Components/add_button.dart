@@ -1,4 +1,5 @@
 import 'package:bebepaca/z-project/Components/add_form.dart';
+import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:flutter/material.dart';
 
 class Add extends StatefulWidget {
