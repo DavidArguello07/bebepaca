@@ -25,20 +25,20 @@ class FirestoreHelper {
     try {
       await docRef.set(newpub);
     } catch (e) {
-      print("EL ERROR ES $e");
+      // print("EL ERROR ES $e");
     }
   }
 
   // leer
   static Stream<List<Pub>> readpub() {
-    final userCollection = FirebaseFirestore.instance.collection('produc');
+    final userCollection = FirebaseFirestore.instance.collection('post');
     return userCollection.snapshots().map((querySnapshot) =>
         querySnapshot.docs.map((e) => Pub.fromSnapshot(e)).toList());
   }
 
   //modificar
   static Future updatepub(Pub pub) async {
-    final userCollection = FirebaseFirestore.instance.collection('produ');
+    final userCollection = FirebaseFirestore.instance.collection('post');
 
     //Agrega nuevo documento
 
@@ -57,7 +57,7 @@ class FirestoreHelper {
     try {
       await docRef.update(newpub);
     } catch (e) {
-      print(e);
+      // print(e);
     }
   }
 }

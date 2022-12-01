@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Pub {
+  final String? uid;
   final String? id;
   final String? nombre;
   final String? descripcion;
@@ -10,7 +11,8 @@ class Pub {
   final String? image;
 
   Pub(
-      {this.id,
+      {this.uid,
+      this.id,
       this.nombre,
       this.descripcion,
       this.precio,
@@ -24,6 +26,7 @@ class Pub {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Pub(
+      uid: snapshot['uid'],
       id: snapshot['id'],
       nombre: snapshot['nombre'],
       descripcion: snapshot['descripcion'],
@@ -35,6 +38,7 @@ class Pub {
   }
 
   Map<String, dynamic> toJson() => {
+        'uid': uid,
         'id': id,
         'nombre': nombre,
         'descripcion': descripcion,

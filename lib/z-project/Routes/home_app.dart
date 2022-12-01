@@ -1,5 +1,5 @@
-import 'package:bebepaca/z-project/models/edit.dart';
-import 'package:bebepaca/z-project/models/pub.dart';
+import 'package:bebepaca/z-project/Components/like.dart';
+import 'package:bebepaca/z-project/Components/gradient.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -16,96 +16,159 @@ class HomeAppState extends State<HomeApp> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(title: const Text("Bienvendio")),
-      body: StreamBuilder(
-        stream: products.snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-          if (streamSnapshot.hasData) {
-            return ListView.builder(
-                itemCount: streamSnapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final DocumentSnapshot documentSnapshot =
-                      streamSnapshot.data!.docs[index];
+        child: Stack(
+      children: [
+        Scaffold(
+          backgroundColor: const Color(0xffD6EAF8),
+          body: StreamBuilder(
+            stream: products.snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
+              if (streamSnapshot.hasData) {
+                return ListView.builder(
+                    itemCount: streamSnapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final DocumentSnapshot documentSnapshot =
+                          streamSnapshot.data!.docs[index];
 
-                  return Column(
-                    children: [
-                      Container(
-                        height: 300,
-                        margin: const EdgeInsets.only(
-                            top: 275, left: 40, right: 40),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(documentSnapshot['image'])),
-                            color: const Color.fromARGB(71, 74, 204, 243),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
-                            shape: BoxShape.rectangle,
-                            boxShadow: const <BoxShadow>[
-                              BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 18,
-                                  offset: Offset(0.0, 7.0))
-                            ]),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(20),
-                        child: Container(
-                          decoration: const BoxDecoration(
-                            color: Color.fromARGB(255, 70, 167, 212),
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
-                          ),
-                          child: Column(
+                      return Column(
+                        children: [
+                          Stack(
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
+                              Container(
+                                height: 300,
+                                margin: const EdgeInsets.only(
+                                    top: 250, left: 40, right: 40),
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      fit: BoxFit.contain,
+                                      image: NetworkImage(
+                                          documentSnapshot['image']),
+                                    ),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(20)),
+                                    shape: BoxShape.rectangle,
+                                    boxShadow: const <BoxShadow>[
+                                      BoxShadow(
+                                          color: Colors.black,
+                                          blurRadius: 20,
+                                          offset: Offset(0.0, 7.0))
+                                    ]),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 25, left: 15, right: 15, bottom: 15),
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Color.fromARGB(252, 250, 250, 250),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              child: Column(
                                 children: [
-                                  Text(
-                                    documentSnapshot['nombre'],
-                                    style: const TextStyle(fontSize: 14),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        documentSnapshot['nombre'],
+                                        style: const TextStyle(fontSize: 15.5),
+                                      ),
+                                      RichText(
+                                        text: TextSpan(
+                                            text: "Talla: ",
+                                            style: const TextStyle(
+                                                fontSize: 15.5,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.w700,
+                                                decoration:
+                                                    TextDecoration.none),
+                                            children: [
+                                              TextSpan(
+                                                text: documentSnapshot['talla'],
+                                                style: const TextStyle(
+                                                    fontSize: 16,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                    decoration:
+                                                        TextDecoration.none),
+                                              )
+                                            ]),
+                                      ),
+                                      Text(
+                                        documentSnapshot['genero'],
+                                        style: const TextStyle(fontSize: 15.5),
+                                      ),
+                                      const FloatingActionButtonGreen(),
+                                    ],
                                   ),
-                                  Text(
-                                    documentSnapshot['talla'],
-                                    style: const TextStyle(fontSize: 14),
-                                  ),
-                                  Text(
-                                    documentSnapshot['genero'],
-                                    style: const TextStyle(fontSize: 14),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 12, bottom: 12),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Expanded(
+                                          // flex: 2,
+                                          child: Text(
+                                            documentSnapshot['descripcion'],
+                                            style:
+                                                const TextStyle(fontSize: 15.5),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: RichText(
+                                            text: TextSpan(
+                                                text: "LPS. ",
+                                                style: const TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.w400,
+                                                    decoration:
+                                                        TextDecoration.none),
+                                                children: [
+                                                  TextSpan(
+                                                    text: documentSnapshot[
+                                                        'precio'],
+                                                    style: const TextStyle(
+                                                        fontSize: 17,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.w700,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .none),
+                                                  )
+                                                ]),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   )
                                 ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(20),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      documentSnapshot['descripcion'],
-                                      style: const TextStyle(fontSize: 4),
-                                    ),
-                                    Text(
-                                      documentSnapshot['precio'],
-                                      style: const TextStyle(fontSize: 14),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  );
-                });
-          }
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        },
-      ),
+                            ),
+                          )
+                        ],
+                      );
+                    });
+              }
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            },
+          ),
+        ),
+        const GradientBack(
+            title: 'Bienvenido a Bebepaca',
+            colorr1: 0xFF4268D3,
+            colorr2: 0xFF584CD1),
+      ],
     ));
   }
 }

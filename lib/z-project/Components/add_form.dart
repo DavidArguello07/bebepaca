@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:bebepaca/z-project/Components/select_photo_options_screen.dart';
 import 'package:bebepaca/z-project/models/firestore_helper.dart';
 import 'package:bebepaca/z-project/models/pub.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -117,6 +116,8 @@ class LoginFormState extends State<LoginForm> {
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(30),
                 child: Column(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text(
                       "Nueva publicación",
@@ -155,7 +156,7 @@ class LoginFormState extends State<LoginForm> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         child: TextFormField(
                           controller: descripcionCtrl,
-                          maxLines: 5,
+                          maxLines: 4,
                           decoration: decoration(
                               "Descripción", Icons.set_meal_outlined),
                           keyboardType: TextInputType.text,

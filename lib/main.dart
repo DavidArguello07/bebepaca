@@ -3,8 +3,7 @@ import 'package:bebepaca/auth/repository/auth_repository.dart';
 import 'package:bebepaca/firebase_options.dart';
 import 'package:bebepaca/layout/bloc/layout_bloc.dart';
 import 'package:bebepaca/routes/splash_router.dart';
-import 'package:bebepaca/z-project/Components/add_form.dart';
-import 'package:bebepaca/z-project/Components/info_page.dart';
+// import 'package:bebepaca/z-project/Components/add_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +38,6 @@ class MyApp extends StatelessWidget {
         navigatorObservers: [HeroController()],
         home: const SlashRouter(),
         // home: LoginForm(),
-        // home: const InfoPage(),
       ),
     );
   }

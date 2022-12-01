@@ -28,14 +28,16 @@ class GradientBack extends StatelessWidget {
                 end: const FractionalOffset(1.0, 0.6),
                 stops: const [0.0, 0.6],
                 tileMode: TileMode.clamp)),
-        child: Text(
-          textAlign: TextAlign.center,
-          title,
-          style: const TextStyle(
-              color: Colors.white,
-              fontSize: 30,
-              fontFamily: "Lato",
-              fontWeight: FontWeight.bold),
+        child: Center(
+          child: Text(
+            textAlign: TextAlign.center,
+            title,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontFamily: "Lato",
+                fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
