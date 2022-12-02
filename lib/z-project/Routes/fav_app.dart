@@ -1,5 +1,7 @@
 import 'package:bebepaca/z-project/Components/like.dart';
 import 'package:bebepaca/z-project/Components/gradient.dart';
+import 'package:bebepaca/z-project/models/edit.dart';
+import 'package:bebepaca/z-project/models/firestore_helper.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -11,10 +13,10 @@ class FavApp extends StatefulWidget {
 }
 
 class FavAppState extends State<FavApp> {
-  final CollectionReference products =
-      FirebaseFirestore.instance.collection('post');
   @override
   Widget build(BuildContext context) {
+    final CollectionReference products =
+        FirebaseFirestore.instance.collection('post');
     return SafeArea(
         child: Stack(
       children: [
@@ -149,6 +151,17 @@ class FavAppState extends State<FavApp> {
                                         )
                                       ],
                                     ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 25,
+                                        left: 15,
+                                        right: 15,
+                                        bottom: 15),
+                                    child: ElevatedButton(
+                                      child: const Icon(Icons.edit),
+                                      onPressed: () {},
+                                    ),
                                   )
                                 ],
                               ),
@@ -165,9 +178,7 @@ class FavAppState extends State<FavApp> {
           ),
         ),
         const GradientBack(
-            title: 'Bienvenido a Bebepaca',
-            colorr1: 0xFF4268D3,
-            colorr2: 0xFF584CD1),
+            title: 'Favoritos', colorr1: 0xFF4268D3, colorr2: 0xFF584CD1),
       ],
     ));
   }

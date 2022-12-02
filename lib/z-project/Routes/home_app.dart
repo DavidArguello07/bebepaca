@@ -1,6 +1,8 @@
 import 'package:bebepaca/z-project/Components/like.dart';
 import 'package:bebepaca/z-project/Components/gradient.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:bebepaca/z-project/models/edit.dart';
+import 'package:bebepaca/z-project/models/firestore_helper.dart';
+import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:flutter/material.dart';
 
 class HomeApp extends StatefulWidget {
@@ -11,8 +13,6 @@ class HomeApp extends StatefulWidget {
 }
 
 class HomeAppState extends State<HomeApp> {
-  final CollectionReference products =
-      FirebaseFirestore.instance.collection('post');
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,14 +21,27 @@ class HomeAppState extends State<HomeApp> {
         Scaffold(
           backgroundColor: const Color(0xffD6EAF8),
           body: StreamBuilder(
-            stream: products.snapshots(),
-            builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
-              if (streamSnapshot.hasData) {
+            stream: FirestoreHelper.readpub(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (snapshot.hasError) {
+                return const Center(
+                  child: Text("Hay un error"),
+                );
+              }
+
+              if (snapshot.hasData) {
+                final userData = snapshot.data;
+
                 return ListView.builder(
-                    itemCount: streamSnapshot.data!.docs.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final DocumentSnapshot documentSnapshot =
-                          streamSnapshot.data!.docs[index];
+                    itemCount: userData!.length,
+                    itemBuilder: (context, index) {
+                      final singleUser = userData[index];
 
                       return Column(
                         children: [
@@ -41,8 +54,7 @@ class HomeAppState extends State<HomeApp> {
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.contain,
-                                      image: NetworkImage(
-                                          documentSnapshot['image']),
+                                      image: NetworkImage(singleUser.image!),
                                     ),
                                     color: const Color.fromARGB(
                                         255, 255, 255, 255),
@@ -74,7 +86,7 @@ class HomeAppState extends State<HomeApp> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        documentSnapshot['nombre'],
+                                        singleUser.nombre!,
                                         style: const TextStyle(fontSize: 15.5),
                                       ),
                                       RichText(
@@ -88,7 +100,7 @@ class HomeAppState extends State<HomeApp> {
                                                     TextDecoration.none),
                                             children: [
                                               TextSpan(
-                                                text: documentSnapshot['talla'],
+                                                text: ("${singleUser.talla}"),
                                                 style: const TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.black,
@@ -99,7 +111,7 @@ class HomeAppState extends State<HomeApp> {
                                             ]),
                                       ),
                                       Text(
-                                        documentSnapshot['genero'],
+                                        "${singleUser.genero}",
                                         style: const TextStyle(fontSize: 15.5),
                                       ),
                                       const FloatingActionButtonGreen(),
@@ -115,7 +127,7 @@ class HomeAppState extends State<HomeApp> {
                                         Expanded(
                                           // flex: 2,
                                           child: Text(
-                                            documentSnapshot['descripcion'],
+                                            "${singleUser.descripcion}",
                                             style:
                                                 const TextStyle(fontSize: 15.5),
                                           ),
@@ -133,8 +145,8 @@ class HomeAppState extends State<HomeApp> {
                                                         TextDecoration.none),
                                                 children: [
                                                   TextSpan(
-                                                    text: documentSnapshot[
-                                                        'precio'],
+                                                    text:
+                                                        "${singleUser.precio}",
                                                     style: const TextStyle(
                                                         fontSize: 17,
                                                         color: Colors.black,
@@ -149,6 +161,69 @@ class HomeAppState extends State<HomeApp> {
                                         )
                                       ],
                                     ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                        child: const Icon(Icons.edit),
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) => Edit(
+                                                      pub: Pub(
+                                                          nombre:
+                                                              singleUser.nombre,
+                                                          descripcion:
+                                                              singleUser
+                                                                  .descripcion,
+                                                          id: singleUser.id,
+                                                          uid: singleUser.uid,
+                                                          talla:
+                                                              singleUser.talla,
+                                                          precio:
+                                                              singleUser.precio,
+                                                          genero:
+                                                              singleUser.genero,
+                                                          image: singleUser
+                                                              .image))));
+                                        },
+                                      ),
+                                      ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: Colors.red,
+                                        ),
+                                        onPressed: () {},
+                                        onLongPress: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                      "Eliminar Publicación"),
+                                                  content: const Text(
+                                                      "¿Seguro que quieres eliminar la publicación?"),
+                                                  actions: [
+                                                    ElevatedButton(
+                                                        onPressed: (() {
+                                                          FirestoreHelper.delete(
+                                                                  singleUser)
+                                                              .then((value) => {
+                                                                    Navigator.pop(
+                                                                        context)
+                                                                  });
+                                                        }),
+                                                        child: const Text(
+                                                            "Eliminar"))
+                                                  ],
+                                                );
+                                              });
+                                        },
+                                        child: const Icon(Icons.delete),
+                                      ),
+                                    ],
                                   )
                                 ],
                               ),
@@ -158,6 +233,7 @@ class HomeAppState extends State<HomeApp> {
                       );
                     });
               }
+
               return const Center(
                 child: CircularProgressIndicator(),
               );

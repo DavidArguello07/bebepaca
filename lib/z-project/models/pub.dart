@@ -9,6 +9,7 @@ class Pub {
   final String? talla;
   final String? genero;
   final String? image;
+  bool like;
 
   Pub(
       {this.uid,
@@ -18,7 +19,8 @@ class Pub {
       this.precio,
       this.talla,
       this.genero,
-      this.image});
+      this.image,
+      this.like = false});
 
   //metodos de conversion
 
@@ -26,15 +28,15 @@ class Pub {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Pub(
-      uid: snapshot['uid'],
-      id: snapshot['id'],
-      nombre: snapshot['nombre'],
-      descripcion: snapshot['descripcion'],
-      precio: snapshot['precio'],
-      talla: snapshot['talla'],
-      genero: snapshot['genero'],
-      image: snapshot['image'],
-    );
+        uid: snapshot['uid'],
+        id: snapshot['id'],
+        nombre: snapshot['nombre'],
+        descripcion: snapshot['descripcion'],
+        precio: snapshot['precio'],
+        talla: snapshot['talla'],
+        genero: snapshot['genero'],
+        image: snapshot['image'],
+        like: snapshot['like']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -45,6 +47,7 @@ class Pub {
         'precio': precio,
         'talla': talla,
         'genero': genero,
-        'image': image
+        'image': image,
+        'like': like
       };
 }

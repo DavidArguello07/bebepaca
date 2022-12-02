@@ -1,3 +1,5 @@
+import 'package:bebepaca/auth/models/admin_user_model.dart';
+import 'package:bebepaca/singleton/getnfo.dart';
 import 'package:bebepaca/z-project/Components/add_button.dart';
 import 'package:bebepaca/z-project/Components/exit.dart';
 import 'package:bebepaca/z-project/Components/like.dart';
@@ -14,8 +16,50 @@ class ProfileApp extends StatefulWidget {
 }
 
 class ProfileAppState extends State<ProfileApp> {
+  late AdminUserModel admin;
+  InfoUser infoUser = InfoUser();
+  String? useruid;
+  String? useruidd;
+  String username = '';
+
+  @override
+  void initState() {
+    getData();
+    useruid = infoUser.getUID;
+    super.initState();
+  }
+
+  getData() async {
+    useruidd = admin.uid;
+    // DocumentSnapshot snap = await FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(FirebaseAuth.instance.currentUser!.uid)
+    //     .get();
+
+    // useruidd = (snap.data() as Map<String, dynamic>)['uid'];
+
+    //  useruid = (snap.data() as Map<String, dynamic>)['uid'];
+
+    // QuerySnapshot<Map<String, dynamic>> snap2 = await FirebaseFirestore.instance
+    //     .collection('post')
+    //     .get(const GetOptions());
+
+    // print(snap.data());
+
+    // setState(() {
+    //   username = (snap.data() as Map<String, dynamic>)['name'];
+    // });
+  }
+
   final CollectionReference products =
       FirebaseFirestore.instance.collection('post');
+
+  late Query test =
+      products.where('uid', isEqualTo: "U4rwc8Tsiah4mkzp46Ai6foBeZC3");
+  // DocumentSnapshot snap = await FirebaseFirestore.instance
+  //   .collection('users')
+  //   .doc(FirebaseAuth.instance.currentUser!.uid)
+  //   .get();
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,7 +68,7 @@ class ProfileAppState extends State<ProfileApp> {
         Scaffold(
           backgroundColor: const Color(0xffD6EAF8),
           body: StreamBuilder(
-            stream: products.snapshots(),
+            stream: test.snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 return ListView.builder(
@@ -77,7 +121,7 @@ class ProfileAppState extends State<ProfileApp> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       Text(
-                                        documentSnapshot['nombre'],
+                                        username,
                                         style: const TextStyle(fontSize: 15.5),
                                       ),
                                       RichText(

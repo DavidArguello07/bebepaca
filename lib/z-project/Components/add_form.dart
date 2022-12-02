@@ -233,6 +233,7 @@ class LoginFormState extends State<LoginForm> {
                                           Radius.circular(30)))),
                               onPressed: () {
                                 uploadFile();
+                                Navigator.pop(context);
                               },
                               child: const Text("Guardar"))),
                     ),

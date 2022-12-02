@@ -8,7 +8,10 @@ import 'package:image_picker/image_picker.dart';
 
 class Edit extends StatefulWidget {
   final Pub pub;
-  const Edit({Key? key, required this.pub}) : super(key: key);
+  const Edit({
+    Key? key,
+    required this.pub,
+  }) : super(key: key);
 
   @override
   EditState createState() => EditState();
@@ -53,10 +56,11 @@ class EditState extends State<Edit> {
     });
   }
 
-  void uploadFile() async {
+  void updateFile() async {
     final file = _image!;
-    final storageRef = FirebaseStorage.instance.ref();
-    Reference ref = storageRef.child('imagenes/');
+    final storageRef = FirebaseStorage.instance.ref('PICTURE');
+    var timeKey = DateTime.now();
+    Reference ref = storageRef.child("${timeKey.toString()}.jpg");
     final uploadTask = ref.putFile(file);
 
     uploadTask.snapshotEvents.listen((event) {
@@ -65,12 +69,14 @@ class EditState extends State<Edit> {
           break;
         case TaskState.success:
           ref.getDownloadURL().then((value) {
-            FirestoreHelper.createpub(Pub(
-              // nombre: prendaCtrl.text,
-              // descripcion: descripcionCtrl.text,
-              // precio: precioCtrl.text,
-              // talla: tallaCtrl.text,
-              // genero: generoCtrl.text,
+            FirestoreHelper.updatepub(Pub(
+              id: widget.pub.id,
+              uid: widget.pub.uid,
+              nombre: prendaCtrl!.text,
+              descripcion: descripcionCtrl!.text,
+              precio: precioCtrl!.text,
+              talla: tallaCtrl!.text,
+              genero: generoCtrl!.text,
               image: value,
             ));
           });
@@ -109,86 +115,119 @@ class EditState extends State<Edit> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text('edit')),
-        body: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            children: [
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: TextFormField(
-                    controller: prendaCtrl,
-                    decoration:
-                        decoration("Prenda", Icons.wallet_travel_outlined),
-                    keyboardType: TextInputType.text,
-                  )),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: TextFormField(
-                    controller: descripcionCtrl,
-                    maxLines: 5,
-                    decoration:
-                        decoration("Descripción", Icons.set_meal_outlined),
-                    keyboardType: TextInputType.text,
-                  )),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: TextFormField(
-                    controller: precioCtrl,
-                    decoration: decoration("Precio", Icons.set_meal_outlined),
-                    keyboardType: TextInputType.number,
-                  )),
-              Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Column(
-                    children: [
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: TextFormField(
-                            controller: tallaCtrl,
-                            decoration:
-                                decoration("Talla", Icons.set_meal_outlined),
-                            keyboardType: TextInputType.text,
-                          )),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: TextFormField(
-                            controller: generoCtrl,
-                            decoration:
-                                decoration("Género", Icons.set_meal_outlined),
-                            keyboardType: TextInputType.text,
-                          )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15),
-                        child: InkWell(
-                            onTap: () => _showSelectPhotoOptions(context),
-                            child: const Icon(
-                              Icons.add_a_photo_outlined,
-                              size: 35,
-                            )),
+          appBar: AppBar(title: const Text('edit')),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "Editar publicación",
+                      style: TextStyle(
+                        fontSize: 30,
+                        letterSpacing: 10,
+                        fontFamily: "Teko",
+                        color: Colors.blueGrey,
                       ),
-                      Center(
-                        child: Container(
-                            height: 230.0,
-                            width: 300.0,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.rectangle,
-                              color: Colors.grey.shade200,
-                            ),
-                            child: Center(
-                                child: _image == null
-                                    ? const Text(
-                                        'No imagen',
-                                        style: TextStyle(fontSize: 15),
-                                      )
-                                    : Image.file(_image!))),
-                      )
-                    ],
-                  ))
-            ],
-          ),
-        ),
-      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: prendaCtrl,
+                        decoration:
+                            decoration("Prenda", Icons.wallet_travel_outlined),
+                        keyboardType: TextInputType.text,
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: descripcionCtrl,
+                        maxLines: 5,
+                        decoration:
+                            decoration("Descripción", Icons.set_meal_outlined),
+                        keyboardType: TextInputType.text,
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: TextFormField(
+                        controller: precioCtrl,
+                        decoration:
+                            decoration("Precio", Icons.set_meal_outlined),
+                        keyboardType: TextInputType.number,
+                      )),
+                  Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: TextFormField(
+                                controller: tallaCtrl,
+                                decoration: decoration(
+                                    "Talla", Icons.set_meal_outlined),
+                                keyboardType: TextInputType.text,
+                              )),
+                          Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: TextFormField(
+                                controller: generoCtrl,
+                                decoration: decoration(
+                                    "Género", Icons.set_meal_outlined),
+                                keyboardType: TextInputType.text,
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15),
+                            child: InkWell(
+                                onTap: () => _showSelectPhotoOptions(context),
+                                child: const Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 35,
+                                )),
+                          ),
+                          Center(
+                            child: Container(
+                                height: 230.0,
+                                width: 300.0,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  color: Colors.grey.shade200,
+                                ),
+                                child: Center(
+                                    child: _image == null
+                                        ? const Text(
+                                            'No imagen',
+                                            style: TextStyle(fontSize: 15),
+                                          )
+                                        : Image.file(_image!))),
+                          )
+                        ],
+                      )),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    child: SizedBox(
+                        width: double.infinity,
+                        height: 45,
+                        child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                                foregroundColor: Colors.black,
+                                elevation: 4,
+                                backgroundColor: Colors.cyan[100],
+                                shape: const RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(30)))),
+                            onPressed: () {
+                              updateFile();
+                              Navigator.pop(context);
+                            },
+                            child: const Text("Guardar cambios"))),
+                  ),
+                ],
+              ),
+            ),
+          )),
     );
   }
 
