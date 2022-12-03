@@ -114,7 +114,18 @@ class HomeAppState extends State<HomeApp> {
                                         "${singleUser.genero}",
                                         style: const TextStyle(fontSize: 15.5),
                                       ),
-                                      const FloatingActionButtonGreen(),
+                                      FloatingActionButtonGreen(
+                                        pub: Pub(
+                                            nombre: singleUser.nombre,
+                                            descripcion: singleUser.descripcion,
+                                            id: singleUser.id,
+                                            uid: singleUser.uid,
+                                            talla: singleUser.talla,
+                                            precio: singleUser.precio,
+                                            genero: singleUser.genero,
+                                            image: singleUser.image,
+                                            like: singleUser.like),
+                                      ),
                                     ],
                                   ),
                                   Padding(

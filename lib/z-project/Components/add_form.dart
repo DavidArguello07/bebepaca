@@ -26,10 +26,11 @@ class LoginFormState extends State<LoginForm> {
 
   final lista1 = ["XS", "S", "M", "L", "XL"];
   String vista1 = "Talla";
+  String? selectedvalue1;
 
   final lista2 = ["Masculino", "Femenino", "Otro..."];
   String vista2 = "Género";
-
+  String? selectedvalue2;
   File? _image;
 
   Future _pickImage(ImageSource source) async {
@@ -101,8 +102,6 @@ class LoginFormState extends State<LoginForm> {
     prendaCtrl.dispose();
     descripcionCtrl.dispose();
     precioCtrl.dispose();
-    tallaCtrl.dispose();
-    generoCtrl.dispose();
     super.dispose();
   }
 
@@ -191,6 +190,36 @@ class LoginFormState extends State<LoginForm> {
                                       "Género", Icons.set_meal_outlined),
                                   keyboardType: TextInputType.text,
                                 )),
+                            // DropdownButton(
+                            //   items: lista1
+                            //       .map((String e) => DropdownMenuItem(
+                            //             value: e,
+                            //             child: Text(e),
+                            //           ))
+                            //       .toList(),
+                            //   value: selectedvalue1,
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       vista1 = value as String;
+                            //     });
+                            //   },
+                            //   hint: Text(vista1),
+                            // ),
+                            // DropdownButton(
+                            //   items: lista2
+                            //       .map((String e) => DropdownMenuItem(
+                            //             value: e,
+                            //             child: Text(e),
+                            //           ))
+                            //       .toList(),
+                            //   value: selectedvalue2,
+                            //   onChanged: (value) {
+                            //     setState(() {
+                            //       vista2 = value as String;
+                            //     });
+                            //   },
+                            //   hint: Text(vista2),
+                            // ),
                             Padding(
                               padding: const EdgeInsets.symmetric(vertical: 15),
                               child: InkWell(

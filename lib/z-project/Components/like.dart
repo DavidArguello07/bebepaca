@@ -1,9 +1,11 @@
+import 'package:bebepaca/z-project/models/firestore_helper.dart';
 import 'package:bebepaca/z-project/models/pub.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FloatingActionButtonGreen extends StatefulWidget {
-  const FloatingActionButtonGreen({super.key});
+  final Pub pub;
+
+  const FloatingActionButtonGreen({super.key, required this.pub});
 
   @override
   State<FloatingActionButtonGreen> createState() =>
@@ -11,17 +13,18 @@ class FloatingActionButtonGreen extends StatefulWidget {
 }
 
 class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
-  bool _pressed = false;
+  bool pressed = false;
   // IconData IconFav = Icons.favorite_border;
   // Color ColorBack = Color(0xFF11DA53);
   // Color ColorIcon = Colors.white;
 
   @override
   Widget build(BuildContext context) {
-    void onPressedFav() {
+    @override
+    void onPressedFav() async {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: _pressed
+          content: pressed
               ? const Text("Lo quitaste de tus favoritos")
               : const Text("Lo agregaste a tus favoritos"),
           duration: const Duration(milliseconds: 400),
@@ -29,26 +32,25 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
       );
 
       setState(() {
-        if (_pressed) {
-          _pressed = false;
+        if (pressed) {
+          pressed = false;
         } else {
-          _pressed = true;
+          pressed = true;
         }
       });
-      CollectionReference users = FirebaseFirestore.instance.collection('post');
 
-      Future updatepub(Pub pub) async {
-        final userCollection = FirebaseFirestore.instance.collection('post');
-        final docRef = userCollection.doc(pub.id);
-
-        final newpub = Pub(like: true).toJson();
-
-        try {
-          await docRef.update(newpub);
-        } catch (e) {
-          // print(e);
-        }
-      }
+      FirestoreHelper.fav(Pub(
+        id: widget.pub.id,
+        uid: widget.pub.uid,
+        nombre: widget.pub.nombre,
+        descripcion: widget.pub.descripcion,
+        precio: widget.pub.precio,
+        talla: widget.pub.talla,
+        genero: widget.pub.genero,
+        image: widget.pub.image,
+        // like: pressed ? true : false,
+        like: widget.pub.like ? false : true,
+      ));
     }
 
     return FloatingActionButton(
@@ -57,6 +59,7 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
         tooltip: "Fav",
         heroTag: "btn1",
         onPressed: onPressedFav,
-        child: Icon(_pressed ? Icons.favorite : Icons.favorite_border));
+        child: Icon(pressed ? Icons.favorite : Icons.favorite_border));
   }
 }
+// pressed ? Icons.favorite : Icons.favorite_border

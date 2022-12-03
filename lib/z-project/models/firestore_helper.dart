@@ -20,7 +20,8 @@ class FirestoreHelper {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .get();
-    userid = (snap.data() as Map<String, dynamic>)['uid'];
+
+    userid = (snap.id as Map<String, dynamic>)['uid'];
 
     infoUser.setUID(userid);
 
@@ -33,7 +34,7 @@ class FirestoreHelper {
             genero: pub.genero,
             precio: pub.precio,
             image: pub.image,
-            like: pub.like)
+            like: false)
         .toJson();
 
     try {
@@ -79,22 +80,30 @@ class FirestoreHelper {
 
     final docRef = userCollection.doc(pub.id).delete();
   }
+
+  //Like
+  static Future fav(Pub pub) async {
+    final userCollection = FirebaseFirestore.instance.collection('post');
+    final docRef = userCollection.doc(pub.id);
+    final newpub = Pub(
+            id: pub.id,
+            uid: pub.uid,
+            nombre: pub.nombre,
+            descripcion: pub.descripcion,
+            talla: pub.talla,
+            genero: pub.genero,
+            precio: pub.precio,
+            image: pub.image,
+            like: pub.like)
+        .toJson();
+
+    try {
+      await docRef.update(newpub);
+    } catch (e) {
+      // print(e);
+    }
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // QuerySnapshot snap = await FirebaseFirestore.instance

@@ -1,7 +1,6 @@
 import 'package:bebepaca/z-project/Components/like.dart';
 import 'package:bebepaca/z-project/Components/gradient.dart';
-import 'package:bebepaca/z-project/models/edit.dart';
-import 'package:bebepaca/z-project/models/firestore_helper.dart';
+import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -17,13 +16,15 @@ class FavAppState extends State<FavApp> {
   Widget build(BuildContext context) {
     final CollectionReference products =
         FirebaseFirestore.instance.collection('post');
+
+    late Query test = products.where('like', isEqualTo: true);
     return SafeArea(
         child: Stack(
       children: [
         Scaffold(
           backgroundColor: const Color(0xffD6EAF8),
           body: StreamBuilder(
-            stream: products.snapshots(),
+            stream: test.snapshots(),
             builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
               if (streamSnapshot.hasData) {
                 return ListView.builder(
@@ -104,7 +105,6 @@ class FavAppState extends State<FavApp> {
                                         documentSnapshot['genero'],
                                         style: const TextStyle(fontSize: 15.5),
                                       ),
-                                      const FloatingActionButtonGreen(),
                                     ],
                                   ),
                                   Padding(
@@ -152,17 +152,6 @@ class FavAppState extends State<FavApp> {
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 25,
-                                        left: 15,
-                                        right: 15,
-                                        bottom: 15),
-                                    child: ElevatedButton(
-                                      child: const Icon(Icons.edit),
-                                      onPressed: () {},
-                                    ),
-                                  )
                                 ],
                               ),
                             ),
