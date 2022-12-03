@@ -1,13 +1,12 @@
-import 'package:bebepaca/singleton/getnfo.dart';
+// import 'package:bebepaca/singleton/getnfo.dart';
 import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class FirestoreHelper {
   //crear
-  static Future createpub(Pub pub) async {
+  static Future createpub(Pub pub, String userId) async {
     final userCollection = FirebaseFirestore.instance.collection('post');
-    InfoUser infoUser = InfoUser();
+    // InfoUser infoUser = InfoUser();
 
     //Agrega nuevo documento
     final pid = userCollection.doc().id;
@@ -15,18 +14,11 @@ class FirestoreHelper {
     final docRef = userCollection.doc(pid);
     //acceso a un doc en especifico
 
-    String userid = '';
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    userid = (snap.id as Map<String, dynamic>)['uid'];
-
-    infoUser.setUID(userid);
+    DocumentSnapshot snap =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
 
     final newpub = Pub(
-            uid: userid,
+            uid: userId,
             id: pid,
             nombre: pub.nombre,
             descripcion: pub.descripcion,
@@ -40,7 +32,7 @@ class FirestoreHelper {
     try {
       await docRef.set(newpub);
     } catch (e) {
-      // print("EL ERROR ES $e");
+      print("EL ERROR ES $e");
     }
   }
 

@@ -19,9 +19,11 @@ class AuthRepositoryAPI {
     }
   }
 
-  Future<String> registerWithEmail(String email, String password, String name) async {
+  Future<String> registerWithEmail(
+      String email, String password, String name) async {
     try {
-      UserCredential user = await auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential user = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       await user.user!.updateDisplayName(name);
       await saveUser(email, user.user!.uid, name);
       return '200';
@@ -48,7 +50,11 @@ class AuthRepositoryAPI {
 
   Stream<AdminUserModel> get getCurrentUserAdmin$ {
     try {
-      return firestore.collection('usersAdmin').doc(auth.currentUser!.uid).snapshots().map((doc) {
+      return firestore
+          .collection('usersAdmin')
+          .doc(auth.currentUser!.uid)
+          .snapshots()
+          .map((doc) {
         return AdminUserModel.fromJson(doc.data() as Map<String, dynamic>);
       });
     } catch (e) {
@@ -58,5 +64,9 @@ class AuthRepositoryAPI {
 
   Future<void> logout() {
     return auth.signOut();
+  }
+
+  User? get getUser {
+    return auth.currentUser;
   }
 }

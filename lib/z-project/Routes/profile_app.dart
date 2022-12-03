@@ -1,12 +1,12 @@
+import 'package:bebepaca/auth/bloc/auth_bloc.dart';
 import 'package:bebepaca/auth/models/admin_user_model.dart';
 import 'package:bebepaca/singleton/getnfo.dart';
 import 'package:bebepaca/z-project/Components/add_button.dart';
 import 'package:bebepaca/z-project/Components/exit.dart';
 import 'package:bebepaca/z-project/Components/gradient.dart';
-import 'package:bebepaca/z-project/Components/perfil_photo.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileApp extends StatefulWidget {
   const ProfileApp({Key? key}) : super(key: key);
@@ -21,46 +21,18 @@ class ProfileAppState extends State<ProfileApp> {
   String? useruidd;
   String username = '';
   String userid = '';
+  late AuthBloc authBloc;
 
   @override
   void initState() {
-    getData();
-    // useruid = infoUser.getUID;
+    authBloc = context.read<AuthBloc>();
     super.initState();
-  }
-
-  getData() async {
-    useruidd = admin.uid;
-    // DocumentSnapshot snap = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(FirebaseAuth.instance.currentUser!.uid)
-    //     .get();
-
-    DocumentSnapshot snap = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
-
-    userid = (snap.id as Map<String, dynamic>)['uid'];
-
-    // QuerySnapshot<Map<String, dynamic>> snap2 = await FirebaseFirestore.instance
-    //     .collection('post')
-    //     .get(const GetOptions());
-
-    // setState(() {
-    //   username = (snap.data() as Map<String, dynamic>)['name'];
-    // });
   }
 
   final CollectionReference products =
       FirebaseFirestore.instance.collection('post');
 
-  late Query test2 =
-      products.where('uid', isEqualTo: "WvhSbU7FxndbHLLlILhQDr4PXAC3");
-  // DocumentSnapshot snap = await FirebaseFirestore.instance
-  //   .collection('users')
-  //   .doc(FirebaseAuth.instance.currentUser!.uid)
-  //   .get();
+  late Query test2 = products.where('uid', isEqualTo: authBloc.getUser!.uid);
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -85,7 +57,7 @@ class ProfileAppState extends State<ProfileApp> {
                               Container(
                                 height: 300,
                                 margin: const EdgeInsets.only(
-                                    top: 250, left: 40, right: 40),
+                                    top: 215, left: 40, right: 40),
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.contain,
@@ -111,7 +83,7 @@ class ProfileAppState extends State<ProfileApp> {
                                 top: 25, left: 15, right: 15, bottom: 15),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Color.fromARGB(252, 250, 250, 250),
+                                color: Color.fromARGB(99, 70, 73, 173),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
@@ -211,11 +183,10 @@ class ProfileAppState extends State<ProfileApp> {
             },
           ),
         ),
-        const GradientBack(
-            title: 'Perfil', colorr1: 0xFF4268D3, colorr2: 0xFF584CD1),
-        Container(
-            padding: const EdgeInsets.only(top: 100, left: 40),
-            child: const PerfilPhoto()),
+        GradientBack(
+            title: authBloc.getUser!.displayName ?? "",
+            colorr1: 0xFF4268D3,
+            colorr2: 0xFF584CD1),
         const Exit(),
         const Add(),
       ],

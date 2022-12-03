@@ -54,4 +54,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> logout() => authRepository.logout();
+
+  User? get getUser {
+    return authRepository.getUser;
+  }
 }

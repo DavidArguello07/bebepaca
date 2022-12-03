@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:bebepaca/auth/bloc/auth_bloc.dart';
 import 'package:bebepaca/z-project/Components/select_photo_options_screen.dart';
 import 'package:bebepaca/z-project/models/firestore_helper.dart';
 import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class LoginForm extends StatefulWidget {
@@ -26,11 +28,10 @@ class LoginFormState extends State<LoginForm> {
 
   final lista1 = ["XS", "S", "M", "L", "XL"];
   String vista1 = "Talla";
-  String? selectedvalue1;
 
   final lista2 = ["Masculino", "Femenino", "Otro..."];
   String vista2 = "Género";
-  String? selectedvalue2;
+
   File? _image;
 
   Future _pickImage(ImageSource source) async {
@@ -50,20 +51,25 @@ class LoginFormState extends State<LoginForm> {
     Reference ref = storageRef.child("${timeKey.toString()}.jpg");
     final uploadTask = ref.putFile(file);
 
+    AuthBloc authBloc = context.read<AuthBloc>();
+    String userId = authBloc.getUser!.uid;
+
     uploadTask.snapshotEvents.listen((event) {
       switch (event.state) {
         case TaskState.running:
           break;
         case TaskState.success:
           ref.getDownloadURL().then((value) {
-            FirestoreHelper.createpub(Pub(
-              nombre: prendaCtrl.text,
-              descripcion: descripcionCtrl.text,
-              precio: precioCtrl.text,
-              talla: tallaCtrl.text,
-              genero: generoCtrl.text,
-              image: value,
-            ));
+            FirestoreHelper.createpub(
+                Pub(
+                  nombre: prendaCtrl.text,
+                  descripcion: descripcionCtrl.text,
+                  precio: precioCtrl.text,
+                  talla: tallaCtrl.text,
+                  genero: generoCtrl.text,
+                  image: value,
+                ),
+                userId);
           });
           break;
         default:
@@ -170,83 +176,68 @@ class LoginFormState extends State<LoginForm> {
                         )),
                     Padding(
                         padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: Column(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: TextFormField(
-                                  controller: tallaCtrl,
-                                  decoration: decoration(
-                                      "Talla", Icons.set_meal_outlined),
-                                  keyboardType: TextInputType.text,
-                                )),
-                            Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                                child: TextFormField(
-                                  controller: generoCtrl,
-                                  decoration: decoration(
-                                      "Género", Icons.set_meal_outlined),
-                                  keyboardType: TextInputType.text,
-                                )),
-                            // DropdownButton(
-                            //   items: lista1
-                            //       .map((String e) => DropdownMenuItem(
-                            //             value: e,
-                            //             child: Text(e),
-                            //           ))
-                            //       .toList(),
-                            //   value: selectedvalue1,
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       vista1 = value as String;
-                            //     });
-                            //   },
-                            //   hint: Text(vista1),
-                            // ),
-                            // DropdownButton(
-                            //   items: lista2
-                            //       .map((String e) => DropdownMenuItem(
-                            //             value: e,
-                            //             child: Text(e),
-                            //           ))
-                            //       .toList(),
-                            //   value: selectedvalue2,
-                            //   onChanged: (value) {
-                            //     setState(() {
-                            //       vista2 = value as String;
-                            //     });
-                            //   },
-                            //   hint: Text(vista2),
-                            // ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15),
-                              child: InkWell(
-                                  onTap: () => _showSelectPhotoOptions(context),
-                                  child: const Icon(
-                                    Icons.add_a_photo_outlined,
-                                    size: 35,
-                                  )),
+                            DropdownButton(
+                              items: lista1
+                                  .map((String e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Text(e),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  tallaCtrl.text = value!;
+                                });
+                              },
+                              hint: Text((tallaCtrl.text == "")
+                                  ? "Talla"
+                                  : tallaCtrl.text),
                             ),
-                            Center(
-                              child: Container(
-                                  height: 230.0,
-                                  width: 300.0,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.rectangle,
-                                    color: Colors.grey.shade200,
-                                  ),
-                                  child: Center(
-                                      child: _image == null
-                                          ? const Text(
-                                              'No imagen',
-                                              style: TextStyle(fontSize: 15),
-                                            )
-                                          : Image.file(_image!))),
-                            )
+                            DropdownButton(
+                              items: lista2
+                                  .map((String e) => DropdownMenuItem(
+                                        value: e,
+                                        child: Text(e),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                setState(() {
+                                  generoCtrl.text = value!;
+                                });
+                              },
+                              hint: Text((generoCtrl.text == "")
+                                  ? "Género"
+                                  : generoCtrl.text),
+                            ),
                           ],
                         )),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: InkWell(
+                          onTap: () => _showSelectPhotoOptions(context),
+                          child: const Icon(
+                            Icons.add_a_photo_outlined,
+                            size: 35,
+                          )),
+                    ),
+                    Center(
+                      child: Container(
+                          height: 230.0,
+                          width: 300.0,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color: Colors.grey.shade200,
+                          ),
+                          child: Center(
+                              child: _image == null
+                                  ? const Text(
+                                      'No imagen',
+                                      style: TextStyle(fontSize: 15),
+                                    )
+                                  : Image.file(_image!))),
+                    ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 15),
                       child: SizedBox(

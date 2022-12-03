@@ -39,7 +39,7 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
         }
       });
 
-      FirestoreHelper.fav(Pub(
+      await FirestoreHelper.fav(Pub(
         id: widget.pub.id,
         uid: widget.pub.uid,
         nombre: widget.pub.nombre,
@@ -59,7 +59,7 @@ class FloatingActionButtonGreenState extends State<FloatingActionButtonGreen> {
         tooltip: "Fav",
         heroTag: "btn1",
         onPressed: onPressedFav,
-        child: Icon(pressed ? Icons.favorite : Icons.favorite_border));
+        child: Icon(widget.pub.like ? Icons.favorite : Icons.favorite_border));
   }
 }
 // pressed ? Icons.favorite : Icons.favorite_border

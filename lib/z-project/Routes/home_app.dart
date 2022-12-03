@@ -25,7 +25,7 @@ class HomeAppState extends State<HomeApp> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: Text("Cargando..."),
                 );
               }
 
@@ -50,7 +50,7 @@ class HomeAppState extends State<HomeApp> {
                               Container(
                                 height: 300,
                                 margin: const EdgeInsets.only(
-                                    top: 250, left: 40, right: 40),
+                                    top: 215, left: 40, right: 40),
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.contain,
@@ -75,7 +75,7 @@ class HomeAppState extends State<HomeApp> {
                                 top: 25, left: 15, right: 15, bottom: 15),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Color.fromARGB(252, 250, 250, 250),
+                                color: Color.fromARGB(99, 70, 73, 173),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),
@@ -87,14 +87,18 @@ class HomeAppState extends State<HomeApp> {
                                     children: [
                                       Text(
                                         singleUser.nombre!,
-                                        style: const TextStyle(fontSize: 15.5),
+                                        style: const TextStyle(
+                                            fontSize: 15.5,
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
                                       ),
                                       RichText(
                                         text: TextSpan(
                                             text: "Talla: ",
                                             style: const TextStyle(
                                                 fontSize: 15.5,
-                                                color: Colors.black,
+                                                color: Color.fromARGB(
+                                                    255, 0, 0, 0),
                                                 fontWeight: FontWeight.w700,
                                                 decoration:
                                                     TextDecoration.none),
@@ -103,7 +107,8 @@ class HomeAppState extends State<HomeApp> {
                                                 text: ("${singleUser.talla}"),
                                                 style: const TextStyle(
                                                     fontSize: 16,
-                                                    color: Colors.black,
+                                                    color: Color.fromARGB(
+                                                        255, 0, 0, 0),
                                                     fontWeight: FontWeight.w400,
                                                     decoration:
                                                         TextDecoration.none),
@@ -112,7 +117,10 @@ class HomeAppState extends State<HomeApp> {
                                       ),
                                       Text(
                                         "${singleUser.genero}",
-                                        style: const TextStyle(fontSize: 15.5),
+                                        style: const TextStyle(
+                                            fontSize: 15.5,
+                                            color:
+                                                Color.fromARGB(255, 0, 0, 0)),
                                       ),
                                       FloatingActionButtonGreen(
                                         pub: Pub(
@@ -150,7 +158,8 @@ class HomeAppState extends State<HomeApp> {
                                                 text: "LPS. ",
                                                 style: const TextStyle(
                                                     fontSize: 15,
-                                                    color: Colors.black,
+                                                    color: Color.fromARGB(
+                                                        255, 2, 2, 2),
                                                     fontWeight: FontWeight.w400,
                                                     decoration:
                                                         TextDecoration.none),
@@ -160,7 +169,8 @@ class HomeAppState extends State<HomeApp> {
                                                         "${singleUser.precio}",
                                                     style: const TextStyle(
                                                         fontSize: 17,
-                                                        color: Colors.black,
+                                                        color: Color.fromARGB(
+                                                            255, 0, 0, 0),
                                                         fontWeight:
                                                             FontWeight.w700,
                                                         decoration:

@@ -30,7 +30,7 @@ class _MenuPrin extends State<MenuPrin> {
       body: widgetsChildren[indexTap],
       bottomNavigationBar: Theme(
           data: Theme.of(context).copyWith(
-            canvasColor: Colors.deepPurple.shade200,
+            canvasColor: const Color.fromARGB(255, 71, 9, 187),
             colorScheme: const ColorScheme.highContrastDark().copyWith(
               primary: Colors.lightBlue,
             ),

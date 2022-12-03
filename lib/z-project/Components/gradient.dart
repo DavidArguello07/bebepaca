@@ -15,7 +15,7 @@ class GradientBack extends StatelessWidget {
     return SafeArea(
       child: Container(
         // width: 500,
-        height: 225,
+        height: 190,
         width: MediaQuery.of(context).size.width,
         // height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(

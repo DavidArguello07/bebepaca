@@ -1,6 +1,4 @@
-import 'package:bebepaca/z-project/Components/like.dart';
 import 'package:bebepaca/z-project/Components/gradient.dart';
-import 'package:bebepaca/z-project/models/pub.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +38,7 @@ class FavAppState extends State<FavApp> {
                               Container(
                                 height: 300,
                                 margin: const EdgeInsets.only(
-                                    top: 250, left: 40, right: 40),
+                                    top: 215, left: 40, right: 40),
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
                                       fit: BoxFit.contain,
@@ -66,7 +64,7 @@ class FavAppState extends State<FavApp> {
                                 top: 25, left: 15, right: 15, bottom: 15),
                             child: Container(
                               decoration: const BoxDecoration(
-                                color: Color.fromARGB(252, 250, 250, 250),
+                                color: Color.fromARGB(99, 70, 73, 173),
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                               ),

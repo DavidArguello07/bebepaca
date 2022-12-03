@@ -15,7 +15,12 @@ class AuthRepository {
 
   Stream<User?> authStateChanges() => authRepositoryAPI.authStateChanges();
 
-  Stream<AdminUserModel> get getCurrentUserAdmin$ => authRepositoryAPI.getCurrentUserAdmin$;
+  Stream<AdminUserModel> get getCurrentUserAdmin$ =>
+      authRepositoryAPI.getCurrentUserAdmin$;
 
   Future<void> logout() => authRepositoryAPI.logout();
+
+  User? get getUser {
+    return authRepositoryAPI.getUser;
+  }
 }
